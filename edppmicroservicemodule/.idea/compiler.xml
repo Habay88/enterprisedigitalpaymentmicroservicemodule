@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for enterprise-digital-payment-platform" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="Merchant-Service" />
+        <module name="Ledger-Service" />
+        <module name="api-gateway" />
+        <module name="Settlement-Service" />
+        <module name="Transaction-Service" />
+        <module name="Discovery-Service" />
+        <module name="Wallet-Service" />
+        <module name="Identity-Service" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Discovery-Service" options="-parameters" />
+      <module name="Identity-Service" options="-parameters" />
+      <module name="Ledger-Service" options="-parameters" />
+      <module name="Merchant-Service" options="-parameters" />
+      <module name="Settlement-Service" options="-parameters" />
+      <module name="Transaction-Service" options="-parameters" />
+      <module name="Wallet-Service" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
+    </option>
+  </component>
+</project>
