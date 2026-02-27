@@ -2,6 +2,8 @@ package com.edpp.identity.service;
 
 import com.edpp.identity.enums.RiskRating;
 import com.edpp.identity.model.Customer;
+import com.edpp.identity.model.FraudCheckResult;
+import com.edpp.identity.model.TransactionContext;
 import com.edpp.identity.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,11 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.time.Period;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
