@@ -27,7 +27,7 @@ public class FraudDetectionService {
     private final CustomerRepository customerRepository;
     private final Map<String, AtomicInteger> failedLoginAttempts
                    = new ConcurrentHashMap<String, AtomicInteger>() ;
-    private final Map<String, List<LocalDateTime>> transactionTimeStamps
+    private final Map<String, List<LocalDateTime>> transactionTimestamps
                    = new ConcurrentHashMap<>();
     @Value("${fraud.max-login-attempts:5}")
     private int maxLoginAttempts;
@@ -250,5 +250,5 @@ public class FraudDetectionService {
     }
 }
 
-    }
-}
+
+

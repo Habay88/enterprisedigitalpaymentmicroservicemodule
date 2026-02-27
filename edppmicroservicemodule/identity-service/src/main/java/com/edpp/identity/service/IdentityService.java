@@ -4,6 +4,7 @@ package com.edpp.identity.service;
 import com.edpp.identity.enums.CustomerStatus;
 import com.edpp.identity.enums.RiskRating;
 import com.edpp.identity.model.Customer;
+import com.edpp.identity.model.KycDetails;
 import com.edpp.identity.repository.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor

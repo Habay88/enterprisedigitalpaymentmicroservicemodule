@@ -115,7 +115,7 @@ public class AuditService {
                 .build();
         sendAuditEvent(event);
     }
-}
+
 /**
  * Log failed login attempt
  */
@@ -245,7 +245,17 @@ private void logAuditToFile(AuditEvent event){
             String remoteAddr = request.getRemoteAddr();
             return remoteAddr != null ? remoteAddr : "UNKNOWN";
         }
-        
 
 
+    /**
+     * Get user agent
+     */
+    private String getUserAgent() {
+        if (request == null) return "UNKNOWN";
+        String userAgent = request.getHeader("User-Agent");
+        return userAgent != null ? userAgent : "UNKNOWN";
+    }
+
+    private class Customer {
+    }
 }

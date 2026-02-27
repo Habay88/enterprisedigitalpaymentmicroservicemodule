@@ -22,52 +22,53 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    
+
     @Column(unique = true, nullable = false)
     private String cifNumber; // Customer Information File Number
-    
+
     @Column(nullable = false)
     private String firstName;
-    
+
     @Column(nullable = false)
     private String lastName;
-    
+
     @Column(unique = true)
     private String email;
-    
+
     private String phoneNumber;
-    
+
     @Enumerated(EnumType.STRING)
     private CustomerType customerType; // INDIVIDUAL, CORPORATE
-    
+
     @Enumerated(EnumType.STRING)
     private CustomerStatus status; // ACTIVE, BLOCKED, CLOSED
-    
+
     @Enumerated(EnumType.STRING)
     private RiskRating riskRating; // LOW, MEDIUM, HIGH
-    
+
     private LocalDateTime dateOfBirth;
     private String taxId; // SSN/EIN equivalent
-    
+
     @Embedded
     private Address residentialAddress;
-    
+
     @Embedded
     private KycDetails kycDetails;
-    
-    @OneToMany(mappedBy = "custome r", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Wallet> wallets = new HashSet<>();
-    
+
     @CreationTimestamp
     private LocalDateTime createdAt;
-    
+
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-    
+
     private String createdBy;
     private String updatedBy;
+
 }
