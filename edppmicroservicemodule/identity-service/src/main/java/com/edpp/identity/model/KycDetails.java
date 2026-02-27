@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class KycDetails {
+public class KycDetails {
     private String idType; // PASSPORT, DRIVERS_LICENSE, NATIONAL_ID
     private String idNumber;
     private LocalDateTime idExpiryDate;
