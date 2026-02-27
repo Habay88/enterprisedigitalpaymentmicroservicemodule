@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="" />
+    <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/FraudCheckResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/TransactionContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/FraudDetectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,10 +21,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -34,14 +44,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;last_directory_selection&quot;: &quot;C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp/identity&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_directory_selection": "C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp/identity",
+    "last_opened_file_path": "C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.edpp.identity.model" />
       <recent name="com.edpp.identity.repository" />
     </key>
     <key name="MoveFile.RECENT_KEYS">

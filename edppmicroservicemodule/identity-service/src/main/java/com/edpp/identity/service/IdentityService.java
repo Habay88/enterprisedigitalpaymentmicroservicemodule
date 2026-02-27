@@ -1,12 +1,11 @@
 package com.edpp.identity.service;
 
-package com.paymentplatform.identity.service;
 
+import com.edpp.identity.enums.CustomerStatus;
+import com.edpp.identity.enums.RiskRating;
+import com.edpp.identity.model.Customer;
 import com.edpp.identity.repository.CustomerRepository;
-import com.paymentplatform.identity.entity.Customer;
-import com.paymentplatform.identity.repository.CustomerRepository;
-import com.paymentplatform.identity.exception.DuplicateCustomerException;
-import com.paymentplatform.identity.exception.CustomerNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
