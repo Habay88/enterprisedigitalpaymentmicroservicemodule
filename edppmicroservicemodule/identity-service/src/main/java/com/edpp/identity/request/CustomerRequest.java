@@ -1,2 +1,4 @@
-package com.edpp.identity.request;public class CustomerRequest {
+package com.edpp.identity.request;
+
+public class CustomerRequest {
 }

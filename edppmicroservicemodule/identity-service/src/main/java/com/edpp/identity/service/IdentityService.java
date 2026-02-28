@@ -3,6 +3,8 @@ package com.edpp.identity.service;
 
 import com.edpp.identity.enums.CustomerStatus;
 import com.edpp.identity.enums.RiskRating;
+import com.edpp.identity.exception.CustomerNotFoundException;
+import com.edpp.identity.exception.DuplicateCustomerException;
 import com.edpp.identity.model.Customer;
 import com.edpp.identity.model.KycDetails;
 import com.edpp.identity.repository.CustomerRepository;

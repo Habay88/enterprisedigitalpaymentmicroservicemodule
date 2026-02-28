@@ -62,7 +62,7 @@ public class AuditService {
      * Log KYC update event
      */
     @Async
-    public void logKycUpdate(Customer customer,String updateBy){
+    public void logKycUpdate(Customer customer,String updatedBy){
         if(!auditEnabled) return;
         AuditEvent event = AuditEvent.builder()
                 .eventId(UUID.randomUUID().toString())
@@ -256,6 +256,4 @@ private void logAuditToFile(AuditEvent event){
         return userAgent != null ? userAgent : "UNKNOWN";
     }
 
-    private class Customer {
-    }
 }

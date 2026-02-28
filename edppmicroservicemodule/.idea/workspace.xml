@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/AuthenticationFailedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/CustomerBlockedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/CustomerNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/FraudDetectionServiceException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/InvalidKycDataException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/RateLimitExceededException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/DuplicateCustomerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/exception/DuplicateCustomerException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/ErrorResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/AuditService.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/AuditService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
