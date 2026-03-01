@@ -2,12 +2,19 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/Discovery-Service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Discovery-Service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Ledger-Service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Ledger-Service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Merchant-Service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Merchant-Service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Settlement-Service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Settlement-Service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Transaction-Service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Transaction-Service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Wallet-Service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Wallet-Service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/identity-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />

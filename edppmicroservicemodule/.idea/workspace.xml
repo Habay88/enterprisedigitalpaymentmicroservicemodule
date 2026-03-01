@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/controller/IdentityController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/response/CustomerResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/AuditService.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/AuditService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/request/CustomerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/request/CustomerRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,16 +47,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp/identity&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_directory_selection": "C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp/identity",
+    "last_opened_file_path": "C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.edpp.identity.model" />
