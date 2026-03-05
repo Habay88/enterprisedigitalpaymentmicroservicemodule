@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-class NimcVerificationResponse {
+public class NimcVerificationResponse {
     private boolean successful;
     private String message;
     private String responseCode;
