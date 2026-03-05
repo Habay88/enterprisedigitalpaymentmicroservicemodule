@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/controller/IdentityController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/response/CustomerResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/config/TenantConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/Tenant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/tenant/TenantContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/request/CustomerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/request/CustomerRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/enums/TenantStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/enums/TenantStatus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +22,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -32,31 +34,27 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
   <component name="ProjectId" id="3ADF1GJkI5KLwK5KT3eieyJJqv0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_directory_selection": "C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp/identity",
-    "last_opened_file_path": "C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp/identity&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.edpp.identity.model" />
@@ -76,6 +74,17 @@
       <updated>1772119020334</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
