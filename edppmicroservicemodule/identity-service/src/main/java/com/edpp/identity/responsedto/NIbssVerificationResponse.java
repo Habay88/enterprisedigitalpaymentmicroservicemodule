@@ -1,4 +1,4 @@
-package com.edpp.identity.response;
+package com.edpp.identity.responsedto;
 
 import lombok.Builder;
 import lombok.Data;

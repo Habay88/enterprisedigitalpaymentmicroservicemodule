@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/BvnVerification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/NinVerification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityValidationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/tenant/TenantAwareEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/tenant/TenantIdentificationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/requestdto/CustomerRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/responsedto/CustomerResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/responsedto/NIbssVerificationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/responsedto/NimcVerificationResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/repository/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/repository/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/controller/IdentityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/controller/IdentityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/dto/CustomerRequest .java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/dto/CustomerResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityValidationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/edpp/identity/service/IdentityValidationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
