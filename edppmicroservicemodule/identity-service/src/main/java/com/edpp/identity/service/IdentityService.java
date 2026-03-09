@@ -9,6 +9,7 @@ import com.edpp.identity.model.Customer;
 import com.edpp.identity.model.KycDetails;
 import com.edpp.identity.repository.CustomerRepository;
 
+import com.edpp.identity.tenant.TenantContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -28,9 +29,11 @@ public class IdentityService {
     private final CustomerRepository customerRepository;
     private final FraudDetectionService fraudDetectionService;
     private final AuditService auditService;
+    private final IdentityValidationService identityValidationService;
 
     @Transactional
     public Customer onboardCustomer(Customer customer) {
+        String tenantId = TenantContext.getTenantId()
         log.info("Onboarding new customer: {}", customer.getEmail());
 
         // Check for duplicate

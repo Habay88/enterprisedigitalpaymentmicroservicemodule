@@ -3,11 +3,9 @@ package com.edpp.identity.model;
 import com.edpp.identity.enums.CustomerStatus;
 import com.edpp.identity.enums.CustomerType;
 import com.edpp.identity.enums.RiskRating;
+import com.edpp.identity.tenant.TenantAwareEntity;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,12 +14,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customers",
+       uniqueConstraints = {
+               @UniqueConstraint(columnNames = {"tenant_id", "cif_number"}),
+               @UniqueConstraint(columnNames = {"tenant_id", "email"}),
+               @UniqueConstraint(columnNames = {"tenant_id", "bvn"}),
+               @UniqueConstraint(columnNames = {"tenant_id", "nin"})
+       })
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+@EqualsAndHashCode(callSuper = true)
+public class Customer extends TenantAwareEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -40,6 +45,19 @@ public class Customer {
     private String email;
 
     private String phoneNumber;
+    // Our Nigerian-specific identification
+    @Column(name = "bvn", length = 11)
+    private String bvn; // Bank Verification Number (11 digits)
+
+    @Column(name = "nin", length = 11)
+    private String nin; // National Identification Number (11 digits)
+
+    @Embedded
+    private BvnVerification bvnVerification;
+
+    @Embedded
+    private NinVerification ninVerification;
+
 
     @Enumerated(EnumType.STRING)
     private CustomerType customerType; // INDIVIDUAL, CORPORATE
