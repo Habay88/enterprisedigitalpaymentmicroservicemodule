@@ -1,6 +1,5 @@
 package com.edpp.identity.controller;
 
-
 import com.edpp.identity.enums.CustomerStatus;
 import com.edpp.identity.mapper.CustomerMapper;
 import com.edpp.identity.model.Customer;
@@ -9,6 +8,7 @@ import com.edpp.identity.requestdto.KycUpdateRequest;
 import com.edpp.identity.requestdto.RequestContext;
 import com.edpp.identity.responsedto.CustomerResponse;
 import com.edpp.identity.responsedto.PageResponse;
+import com.edpp.identity.responsedto.ApiResponse; // Make sure this import exists
 import com.edpp.identity.service.AuditService;
 import com.edpp.identity.service.IdentityService;
 import com.edpp.identity.service.IdentityValidationService;
@@ -17,7 +17,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +27,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 import javax.validation.Valid;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -101,7 +100,6 @@ public class IdentityController {
                         .requestId(requestContext.getRequestId())
                         .build());
     }
-
 
     @GetMapping("/{cifNumber}")
     @Operation(summary = "Get customer by CIF number")
