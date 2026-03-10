@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Data
 @Builder
@@ -20,6 +18,4 @@ public class ApiResponse<T> {
     private T data;
     private LocalDateTime timestamp;
     private String requestId;
-    private Map<String, String> errors;
-    private String path;
 }
