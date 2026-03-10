@@ -1,6 +1,7 @@
 package com.edpp.identity.requestdto;
 
-import com.edpp.identity.enums.CustomerType;
+
+import com.edpp.identity.enum.CustomerStatus;
 import com.edpp.identity.model.Address;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -51,7 +52,7 @@ public class CustomerRequest {
 
     @Schema(description = "Customer type", example = "INDIVIDUAL", required = true)
     @NotNull(message = "Customer type is required")
-    private CustomerType customerType;
+    private CustomerStatus customerType;
 
     @Schema(description = "Customer's date of birth", example = "1990-01-01T00:00:00")
     @Past(message = "Date of birth must be in the past")
