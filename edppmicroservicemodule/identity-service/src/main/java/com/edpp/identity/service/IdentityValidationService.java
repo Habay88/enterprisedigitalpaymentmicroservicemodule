@@ -3,7 +3,7 @@ package com.edpp.identity.service;
 import com.edpp.identity.model.BvnVerification;
 import com.edpp.identity.model.Customer;
 import com.edpp.identity.model.NinVerification;
-import com.edpp.identity.responsedto.NibssVerificationResponse;
+import com.edpp.identity.responsedto.NIbssVerificationResponse;
 import com.edpp.identity.responsedto.NimcVerificationResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +59,7 @@ public class IdentityValidationService {
     private boolean verifyBvnWithNibss(String bvn) {
         try {
             // Call NIBSS API for BVN verification
-            NibssVerificationResponse response = nibssIntegrationService.verifyBvn(bvn);
+            NIbssVerificationResponse response = nibssIntegrationService.verifyBvn(bvn);
 
             if (response.isSuccessful()) {
                 log.info("BVN verified successfully: {}", bvn.substring(0, 6) + "*****");

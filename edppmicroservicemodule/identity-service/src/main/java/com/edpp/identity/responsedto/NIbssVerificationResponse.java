@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class NibssVerificationResponse {
+ public class NIbssVerificationResponse {
     private boolean successful;
     private String message;
     private String responseCode;
