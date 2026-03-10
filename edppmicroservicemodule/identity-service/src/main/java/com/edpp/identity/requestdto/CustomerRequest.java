@@ -1,7 +1,7 @@
 package com.edpp.identity.requestdto;
 
 
-import com.edpp.identity.enum.CustomerStatus;
+import com.edpp.identity.enums.CustomerStatus;
 import com.edpp.identity.model.Address;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.fasterxml.jackson.annotation.JsonProperty;
