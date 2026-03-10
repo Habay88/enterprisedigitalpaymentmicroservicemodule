@@ -33,16 +33,40 @@ public class IdentityService {
 
     @Transactional
     public Customer onboardCustomer(Customer customer) {
-        String tenantId = TenantContext.getTenantId()
-        log.info("Onboarding new customer: {}", customer.getEmail());
+        String tenantId = TenantContext.getTenantId();
+        log.info("Onboarding new customer: {}",tenantId, customer.getEmail());
 
-        // Check for duplicate
-        if (customerRepository.existsByEmail(customer.getEmail())) {
-            throw new DuplicateCustomerException("Customer already exists");
+        // Check for duplicate within tenant
+        if (customerRepository.existsByEmailAndTenantId(customer.getEmail(), tenantId)) {
+            auditService.logFailedLogin(customer.getEmail(), "DUPLICATE_REGISTRATION");
+            throw new DuplicateCustomerException("email", customer.getEmail());
+        }
+        if(customer.getPhoneNumber() != null &&
+        customerRepository.existByPhoneNumberAndTenantId(customer.getPhoneNumber(),tenantId)
+        ){
+            throw new DuplicateCustomerException("email", customer.getEmail());
+        }
+        if(customer.getPhoneNumber() != null &&
+        customerRepository.existByPhoneNumberAndTenantId(
+                customer.getPhoneNumber(),tenantId
+        )){
+            throw new DuplicateCustomerException("phone", customer.getPhoneNumber());
+        }
+        // check BVN uniqueness within tenant
+        if (customer.getBvn() != null &&
+                customerRepository.existsByBvnAndTenantId(customer.getBvn(), tenantId)
+        ) {
+            throw new DuplicateCustomerException("bvn", customer.getBvn());
+        }
+        // CHECK NIN UNIQUENESS WITHIN TENANT
+        if(customer.getNin() != null &&
+                customerRepository.existsByNinAndTenantId(customer.getNin(), tenantId)){
+            throw new DuplicateCustomerException("nin",customer.getNin());
         }
 
-        // Generate CIF number
-        customer.setCifNumber(generateCifNumber());
+
+        // Generate CIF number(unique within tenant)
+        customer.setCifNumber(generateCifNumber(tenantId));
 
         // Perform initial risk assessment
         RiskRating initialRisk = fraudDetectionService.assessInitialRisk(customer);

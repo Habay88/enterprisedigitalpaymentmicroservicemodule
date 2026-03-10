@@ -123,5 +123,9 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
                  nativeQuery = true)
     List<Customer> findHighValueCustomers(@Param("threshold") BigDecimal threshold,
                                           @Param("since") LocalDateTime since);
+
+    boolean existByPhoneNumberAndTenantId(String phoneNumber, String tenantId);
+
+
 }
 
