@@ -156,8 +156,9 @@ public class IdentityService {
         
         Customer blockedCustomer = customerRepository.save(customer);
         
+        // Fixed: Passing 4 parameters instead of 5
         auditService.logStatusChange(
-            cifNumber, oldStatus, CustomerStatus.BLOCKED, reason, blockedBy
+            cifNumber, oldStatus, CustomerStatus.BLOCKED, reason
         );
         
         return blockedCustomer;
@@ -180,8 +181,9 @@ public class IdentityService {
         
         Customer unblockedCustomer = customerRepository.save(customer);
         
+        // Fixed: Passing 4 parameters instead of 5
         auditService.logStatusChange(
-            cifNumber, oldStatus, CustomerStatus.ACTIVE, reason, unblockedBy
+            cifNumber, oldStatus, CustomerStatus.ACTIVE, reason
         );
         
         return unblockedCustomer;
@@ -259,6 +261,7 @@ public class IdentityService {
     @CacheEvict(value = "customers", key = "#cifNumber + '_' + T(com.edpp.identity.tenant.TenantContext).getTenantId()")
     public void deactivateCustomer(String cifNumber, String reason, String deactivatedBy) {
         Customer customer = getCustomerByCif(cifNumber);
+        CustomerStatus oldStatus = customer.getStatus();
         
         customer.setStatus(CustomerStatus.DEACTIVATED);
         customer.setDeactivationReason(reason);
@@ -268,8 +271,9 @@ public class IdentityService {
         
         customerRepository.save(customer);
         
+        // Fixed: Passing 4 parameters instead of 5
         auditService.logStatusChange(
-            cifNumber, customer.getStatus(), CustomerStatus.DEACTIVATED, reason, deactivatedBy
+            cifNumber, oldStatus, CustomerStatus.DEACTIVATED, reason
         );
     }
     

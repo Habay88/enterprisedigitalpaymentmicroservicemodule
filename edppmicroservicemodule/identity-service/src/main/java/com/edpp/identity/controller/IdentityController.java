@@ -8,7 +8,7 @@ import com.edpp.identity.requestdto.KycUpdateRequest;
 import com.edpp.identity.requestdto.RequestContext;
 import com.edpp.identity.responsedto.CustomerResponse;
 import com.edpp.identity.responsedto.PageResponse;
-import com.edpp.identity.responsedto.ApiResponse; // Make sure this import exists
+import com.edpp.identity.responsedto.ApiResponse;
 import com.edpp.identity.service.AuditService;
 import com.edpp.identity.service.IdentityService;
 import com.edpp.identity.service.IdentityValidationService;
@@ -25,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -180,7 +182,8 @@ public class IdentityController {
             }) Pageable pageable) {
 
         Page<Customer> customersPage = identityService.getAllCustomers(pageable);
-        Page<CustomerResponse> responsePage = customersPage.map(customerMapper::toSimplifiedResponse);
+        // FIXED: Use toResponse instead of toSimplifiedResponse
+        Page<CustomerResponse> responsePage = customersPage.map(customer -> customerMapper.toResponse(customer));
 
         PageResponse<CustomerResponse> pageResponse = PageResponse.<CustomerResponse>builder()
                 .content(responsePage.getContent())
@@ -212,7 +215,8 @@ public class IdentityController {
             @PageableDefault(size = 20) Pageable pageable) {
 
         Page<Customer> customers = identityService.searchCustomers(email, phone, status, searchTerm, pageable);
-        Page<CustomerResponse> responsePage = customers.map(customerMapper::toSimplifiedResponse);
+        // FIXED: Use toResponse instead of toSimplifiedResponse
+        Page<CustomerResponse> responsePage = customers.map(customer -> customerMapper.toResponse(customer));
 
         PageResponse<CustomerResponse> pageResponse = PageResponse.<CustomerResponse>builder()
                 .content(responsePage.getContent())

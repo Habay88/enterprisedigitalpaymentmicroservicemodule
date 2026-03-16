@@ -75,6 +75,58 @@ public class FraudDetectionService {
 
         return determineRiskRating(riskScore);
     }
+    /**
+ * Reassess risk for an existing customer after verification or changes
+ */
+public RiskRating reassessRisk(Customer customer) {
+    log.info("Reassessing risk for customer: {}", customer.getEmail());
+    
+    int riskScore = 0;
+
+    // Check if BVN is verified (reduces risk)
+    if (customer.hasVerifiedBvn()) {
+        riskScore -= 20;
+    }
+
+    // Check if NIN is verified (reduces risk)
+    if (customer.hasVerifiedNin()) {
+        riskScore -= 20;
+    }
+
+    // Check if KYC is completed (reduces risk)
+    if (customer.hasCompletedKyc()) {
+        riskScore -= 15;
+    }
+
+    // Account age (older accounts are less risky)
+    if (customer.getCreatedAt() != null) {
+        long accountAgeInDays = java.time.Duration.between(customer.getCreatedAt(), LocalDateTime.now()).toDays();
+        if (accountAgeInDays > 365) {
+            riskScore -= 25; // More than 1 year old
+        } else if (accountAgeInDays > 90) {
+            riskScore -= 15; // More than 3 months old
+        } else if (accountAgeInDays > 30) {
+            riskScore -= 5;  // More than 1 month old
+        }
+    }
+
+    // Check transaction history (if available)
+    if (transactionTimestamps.containsKey(customer.getId())) {
+        int transactionCount = transactionTimestamps.get(customer.getId()).size();
+        if (transactionCount > 50) {
+            riskScore -= 10; // Established transaction history
+        }
+    }
+
+    // Ensure risk score doesn't go negative
+    riskScore = Math.max(0, riskScore);
+    
+    RiskRating newRating = determineRiskRating(riskScore);
+    log.info("Customer {} risk reassessed from {} to {} with score: {}", 
+             customer.getEmail(), customer.getRiskRating(), newRating, riskScore);
+    
+    return newRating;
+}
 
     /**
      * Real-time fraud check during transaction

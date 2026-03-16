@@ -1,5 +1,13 @@
 package com.edpp.identity.enums;
 
 public enum CustomerStatus {
-    PENDING_ACTIVATION, ACTIVE, SUSPENDED, CLOSED,BLOCKED
+    ACTIVE,
+    INACTIVE,
+    PENDING_ACTIVATION,
+    BLOCKED,
+    DEACTIVATED,
+    SUSPENDED,
+    PENDING_KYC,
+    REJECTED,
+    CLOSED
 }

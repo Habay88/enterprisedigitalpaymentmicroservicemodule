@@ -13,6 +13,7 @@ import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.regex.Pattern;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -135,6 +136,56 @@ public class IdentityValidationService {
             customer.setNinVerification(ninVerification);
         }
 
+        return customer;
+    }
+
+    // ===== ADD THESE TWO METHODS =====
+
+    /**
+     * Verify BVN for an existing customer
+     */
+    public Customer verifyBvn(Customer customer, String bvn) {
+        log.info("Verifying BVN for customer: {}", customer.getEmail());
+        
+        // Validate and verify BVN
+        validateBvn(bvn, true);
+        customer.setBvn(bvn);
+
+        BvnVerification bvnVerification = BvnVerification.builder()
+                .verified(true)
+                .verifiedAt(LocalDateTime.now())
+                .verifiedBy("SYSTEM")
+                .verificationReference(UUID.randomUUID().toString())
+                .responseCode("00")
+                .responseMessage("BVN verified successfully")
+                .build();
+
+        customer.setBvnVerification(bvnVerification);
+        
+        return customer;
+    }
+
+    /**
+     * Verify NIN for an existing customer
+     */
+    public Customer verifyNin(Customer customer, String nin) {
+        log.info("Verifying NIN for customer: {}", customer.getEmail());
+        
+        // Validate and verify NIN
+        validateNin(nin, true);
+        customer.setNin(nin);
+
+        NinVerification ninVerification = NinVerification.builder()
+                .verified(true)
+                .verifiedAt(LocalDateTime.now())
+                .verifiedBy("SYSTEM")
+                .verificationReference(UUID.randomUUID().toString())
+                .responseCode("00")
+                .responseMessage("NIN verified successfully")
+                .build();
+
+        customer.setNinVerification(ninVerification);
+        
         return customer;
     }
 }
