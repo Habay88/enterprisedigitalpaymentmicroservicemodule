@@ -34,8 +34,8 @@ public class AuditService {
      * Log customer onboarding event
      */
     @Async
-    public void logCustomerOnboarding(Customer customer){
-        if(!auditEnabled) return;
+    public void logCustomerOnboarding(Customer customer) {
+        if (!auditEnabled) return;
 
         AuditEvent event = AuditEvent.builder()
                 .eventId(UUID.randomUUID().toString())
@@ -48,22 +48,24 @@ public class AuditService {
                 .resourceId(customer.getCifNumber())
                 .status("SUCCESS")
                 .details(Map.of(
-                        "customerType",customer.getCustomerType().toString(),
+                        "customerType", customer.getCustomerType().toString(),
                         "riskRating", customer.getRiskRating().toString(),
                         "kycStatus", customer.getKycDetails() != null ?
                                 customer.getKycDetails().isKycCompleted() : false
-                        ))
+                ))
                 .ipAddress(getClientIp())
                 .userAgent(getUserAgent())
                 .build();
         sendAuditEvent(event);
     }
+
     /**
      * Log KYC update event
      */
     @Async
-    public void logKycUpdate(Customer customer,String updatedBy){
-        if(!auditEnabled) return;
+    public void logKycUpdate(Customer customer, String updatedBy) {
+        if (!auditEnabled) return;
+
         AuditEvent event = AuditEvent.builder()
                 .eventId(UUID.randomUUID().toString())
                 .eventType("KYC_UPDATE")
@@ -75,27 +77,26 @@ public class AuditService {
                 .resourceId(customer.getCifNumber())
                 .status("SUCCESS")
                 .details(Map.of(
-                        "kycCompleted",customer.getKycDetails() !=null ?
-                                           customer.getKycDetails().isKycCompleted() : false,
-                         "idType", customer.getKycDetails() != null ?
-                                       customer.getKycDetails().getIdType() : null,
+                        "kycCompleted", customer.getKycDetails() != null ?
+                                customer.getKycDetails().isKycCompleted() : false,
+                        "idType", customer.getKycDetails() != null ?
+                                customer.getKycDetails().getIdType() : null,
                         "verifiedBy", updatedBy
-
                 ))
                 .ipAddress(getClientIp())
                 .userAgent(getUserAgent())
                 .build();
         sendAuditEvent(event);
-
     }
 
     /**
      * Log status change event
      */
     @Async
-    public void logStatusChange(String customerId, CustomerStatus  oldStatus,
-                                CustomerStatus newStatus,String reason){
-        if(!auditEnabled) return;
+    public void logStatusChange(String customerId, CustomerStatus oldStatus,
+                                CustomerStatus newStatus, String reason, String performedBy) {
+        if (!auditEnabled) return;
+
         AuditEvent event = AuditEvent.builder()
                 .eventId(UUID.randomUUID().toString())
                 .eventType("STATUS_CHANGE")
@@ -108,7 +109,8 @@ public class AuditService {
                 .details(Map.of(
                         "oldStatus", oldStatus.toString(),
                         "newStatus", newStatus.toString(),
-                        "reason", reason
+                        "reason", reason,
+                        "performedBy", performedBy
                 ))
                 .ipAddress(getClientIp())
                 .userAgent(getUserAgent())
@@ -116,39 +118,42 @@ public class AuditService {
         sendAuditEvent(event);
     }
 
-/**
- * Log failed login attempt
- */
-@Async
-public void logFailedLogin(String email,String reason){
-    if(!auditEnabled) return;
-    AuditEvent event = AuditEvent.builder()
-            .eventId(UUID.randomUUID().toString())
-            .eventType("LOGIN_FAILED")
-            .timestamp(LocalDateTime.now())
-            .userEmail(email)
-            .action("LOGIN")
-            .resource("AUTH")
-            .status("FAILED")
-            .details(Map.of(
-                    "reason",reason,
-                    "attemptCount", 1
-            ))
-            .ipAddress(getClientIp())
-            .userAgent(getUserAgent())
-            .build();
-    sendAuditEvent(event);
-}
+    /**
+     * Log failed login attempt
+     */
+    @Async
+    public void logFailedLogin(String email, String reason) {
+        if (!auditEnabled) return;
+
+        AuditEvent event = AuditEvent.builder()
+                .eventId(UUID.randomUUID().toString())
+                .eventType("LOGIN_FAILED")
+                .timestamp(LocalDateTime.now())
+                .userEmail(email)
+                .action("LOGIN")
+                .resource("AUTH")
+                .status("FAILED")
+                .details(Map.of(
+                        "reason", reason,
+                        "attemptCount", 1
+                ))
+                .ipAddress(getClientIp())
+                .userAgent(getUserAgent())
+                .build();
+        sendAuditEvent(event);
+    }
+
     /**
      * Log suspicious activity
      */
     @Async
-public void logSuspiciousActivity(String customerId,String activity,
-              Map<String,Object>details ){
-        if(!auditEnabled) return;
+    public void logSuspiciousActivity(String customerId, String activity,
+                                      Map<String, Object> details) {
+        if (!auditEnabled) return;
+
         AuditEvent event = AuditEvent.builder()
                 .eventId(UUID.randomUUID().toString())
-                .eventType("SUSPICIOUS ACTIVITY")
+                .eventType("SUSPICIOUS_ACTIVITY")
                 .timestamp(LocalDateTime.now())
                 .userId(customerId)
                 .action("ALERT")
@@ -163,17 +168,19 @@ public void logSuspiciousActivity(String customerId,String activity,
                 .userAgent(getUserAgent())
                 .build();
         sendAuditEvent(event);
-        // Send alert for high-priority suspicious activities
+
         if (activity.contains("FRAUD") || activity.contains("UNAUTHORIZED")) {
             sendAlert(event);
         }
     }
+
     /**
      * Log data export (GDPR compliance)
      */
     @Async
-public void logDataExport(String customerId,String exportedBy,String reason) {
+    public void logDataExport(String customerId, String exportedBy, String reason) {
         if (!auditEnabled) return;
+
         AuditEvent event = AuditEvent.builder()
                 .eventId(UUID.randomUUID().toString())
                 .eventType("DATA_EXPORT")
@@ -191,61 +198,65 @@ public void logDataExport(String customerId,String exportedBy,String reason) {
                 .ipAddress(getClientIp())
                 .userAgent(getUserAgent())
                 .build();
-
         sendAuditEvent(event);
     }
-        /**
-         * Send audit event to Kafka for persistent storage
-         */
-        private void sendAuditEvent(AuditEvent event){
-            try{
-                String eventJson = objectMapper.writeValueAsString(event);
-                kafkaTemplate.send(auditTopic, event.getEventId(), eventJson)
-                        .whenComplete((result, ex)-> {
-                            if (ex == null){
-                                log.debug("Audit event sent successfully: {}",event.getEventId(), ex);
-                                // Fallback to local logging
-                                logAuditToFile(event);
-                            }
-                        });
-            } catch (Exception e) {
-                log.error("Error serializing audit event", e);
-            }
-        }
-        /**
-         * Fallback: log to file if Kafka is unavailable
-         */
-private void logAuditToFile(AuditEvent event){
-            log.info("AUDIT: {} | {} | {} | {} | {}",
-                    event.getTimestamp(),
-                    event.getEventType(),
-                    event.getUserId(),
-                    event.getAction(),
-                    event.getStatus()
-            );
-        }
-        /**
-         * Send alert for critical events
-         */
-        private void sendAlert(AuditEvent event){
-            // will be sending email/sms pagerduty alert in production
-            log.warn("ALERT: Critical audit event detected: {}", event);
-        }
-        /**
-         * Get client IP address
-         */
-         private String getClientIp() {
-            if (request == null) return "UNKNOWN";
 
-            String xForwardedFor = request.getHeader("X-Forwarded-For");
-            if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
-                return xForwardedFor.split(",")[0].trim();
-            }
+    /**
+     * Send audit event to Kafka for persistent storage
+     */
+    private void sendAuditEvent(AuditEvent event) {
+        try {
+            String eventJson = objectMapper.writeValueAsString(event);
+            kafkaTemplate.send(auditTopic, event.getEventId(), eventJson)
+                    .whenComplete((result, ex) -> {
+                        if (ex != null) {
+                            log.error("Failed to send audit event to Kafka: {}", event.getEventId(), ex);
+                            // Fallback to local logging
+                            logAuditToFile(event);
+                        } else {
+                            log.debug("Audit event sent successfully: {}", event.getEventId());
+                        }
+                    });
+        } catch (Exception e) {
+            log.error("Error serializing audit event", e);
+            logAuditToFile(event);
+        }
+    }
 
-            String remoteAddr = request.getRemoteAddr();
-            return remoteAddr != null ? remoteAddr : "UNKNOWN";
+    /**
+     * Fallback: log to file if Kafka is unavailable
+     */
+    private void logAuditToFile(AuditEvent event) {
+        log.info("AUDIT: {} | {} | {} | {} | {}",
+                event.getTimestamp(),
+                event.getEventType(),
+                event.getUserId(),
+                event.getAction(),
+                event.getStatus()
+        );
+    }
+
+    /**
+     * Send alert for critical events
+     */
+    private void sendAlert(AuditEvent event) {
+        log.warn("ALERT: Critical audit event detected: {}", event);
+    }
+
+    /**
+     * Get client IP address
+     */
+    private String getClientIp() {
+        if (request == null) return "UNKNOWN";
+
+        String xForwardedFor = request.getHeader("X-Forwarded-For");
+        if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
+            return xForwardedFor.split(",")[0].trim();
         }
 
+        String remoteAddr = request.getRemoteAddr();
+        return remoteAddr != null ? remoteAddr : "UNKNOWN";
+    }
 
     /**
      * Get user agent
@@ -255,5 +266,4 @@ private void logAuditToFile(AuditEvent event){
         String userAgent = request.getHeader("User-Agent");
         return userAgent != null ? userAgent : "UNKNOWN";
     }
-
 }
