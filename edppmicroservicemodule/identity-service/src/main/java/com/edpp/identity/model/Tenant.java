@@ -10,6 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +22,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Tenant {
 
     @Id
@@ -55,5 +59,14 @@ public class Tenant {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    
+    
+  @CreatedBy // Add this
+    @Column(updatable = false)
+    private String createdBy;
+    
+     @LastModifiedBy // Add this
+    private String updatedBy;
+
 }
 

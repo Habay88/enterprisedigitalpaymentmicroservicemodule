@@ -20,4 +20,9 @@ public class TenantConfiguration {
     private String supportedCurrencies;
     private String defaultLanguage;
     private String timezone;
+    private Integer maxFailedLoginAttempts;
+    private Integer sessionTimeoutMinutes;
+    private boolean enableMfa;
+    private String webhookUrl;
+    private String callbackUrl;
 }

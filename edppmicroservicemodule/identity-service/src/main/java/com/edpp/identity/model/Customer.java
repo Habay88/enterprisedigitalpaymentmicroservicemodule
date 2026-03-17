@@ -101,7 +101,9 @@ public class Customer extends TenantAwareEntity {
 
     private String createdBy;
     private String updatedBy;
-
+     
+      @Builder.Default
+    private String tenantId = null;
     @Version
     @Column(name = "version")
     private Long version;
