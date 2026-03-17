@@ -38,6 +38,14 @@ public class Tenant {
     @Column(unique = true)
     private String schemaName; // Database schema name
 
+     @Column(name = "contact_email")
+    private String contactEmail;
+
+     @Column(name = "contact_phone")
+    private String contactPhone;
+     
+    @Column(name = "description", length = 1000)
+    private String description;
     @Column(unique = true)
     private String domain; // Tenant domain (e.g., banka.example.com)
 

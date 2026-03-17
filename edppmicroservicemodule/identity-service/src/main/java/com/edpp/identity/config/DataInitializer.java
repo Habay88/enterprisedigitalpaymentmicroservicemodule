@@ -563,7 +563,7 @@ public class DataInitializer {
         log.info("=====================");
         
         for (Tenant tenant : tenants) {
-            long customerCount = customerRepository.findByTenantId(tenant.getTenantId()).size();
+            long customerCount = customerRepository.countByTenantId(tenant.getTenantId());
             log.info("\n🏦 Tenant: {} ({})", tenant.getName(), tenant.getTenantId());
             log.info("   ├─ Domain: {}", tenant.getDomain());
             log.info("   ├─ Type: {}", tenant.getTenantType());

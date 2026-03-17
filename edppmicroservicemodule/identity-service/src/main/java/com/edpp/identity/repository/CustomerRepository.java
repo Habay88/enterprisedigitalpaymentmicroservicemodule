@@ -21,6 +21,7 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
+   // Page<Customer> findByTenantId(String tenantId, Pageable pageable);
 
     // Tenant-aware queries - automatically filter by tenant_id
 
@@ -72,7 +73,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 
     // Find all customers by tenant with pagination
     Page<Customer> findByTenantId(String tenantId, Pageable pageable);
-
+   //  List<Customer> findByTenantId(String tenantId);
     // Count methods for statistics
     long countByTenantId(String tenantId);
     
