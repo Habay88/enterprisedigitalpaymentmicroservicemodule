@@ -1,5 +1,14 @@
 package com.edpp.transaction.config;
 
+
+import feign.RequestInterceptor;
+import feign.Retryer;
+import feign.codec.ErrorDecoder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Configuration
 public class FeignClientConfig {
 

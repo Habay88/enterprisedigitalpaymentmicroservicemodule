@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.edpp</groupId>
-	<artifactId>Transaction-Service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Transaction-Service</name>
-	<description>Transaction SERVICE</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-	<properties>
-		<java.version>21</java.version>
-		 <spring-cloud.version>2022.0.4</spring-cloud.version>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.edpp</groupId>
+    <artifactId>transaction-service</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>21</java.version>
+        <spring-cloud.version>2022.0.4</spring-cloud.version>
         <springdoc.version>2.2.0</springdoc.version>
         <resilience4j.version>2.1.0</resilience4j.version>
         <testcontainers.version>1.19.1</testcontainers.version>
-	</properties>
- <dependencies>
+        <stripe.version>24.0.0</stripe.version>
+        <paypal.version>1.14.0</paypal.version>
+    </properties>
+
+    <dependencies>
         <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -90,30 +84,11 @@
             <artifactId>resilience4j-retry</artifactId>
             <version>${resilience4j.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-timelimiter</artifactId>
-            <version>${resilience4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-bulkhead</artifactId>
-            <version>${resilience4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-ratelimiter</artifactId>
-            <version>${resilience4j.version}</version>
-        </dependency>
 
         <!-- Messaging -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
         </dependency>
 
         <!-- Database -->
@@ -127,19 +102,11 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
 
         <!-- Caching -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
         </dependency>
 
         <!-- OpenAPI / Swagger -->
@@ -154,14 +121,16 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
+
+        <!-- Payment Processor SDKs - Using specific versions that exist -->
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>${stripe.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.zipkin.reporter2</groupId>
-            <artifactId>zipkin-reporter-brave</artifactId>
-        </dependency>
+        
+        <!-- Paystack Java SDK (if available, otherwise we'll use REST template) -->
+        <!-- We'll use REST template for Paystack to avoid dependency issues -->
 
         <!-- Utils -->
         <dependency>
@@ -189,23 +158,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Payment Processor SDKs (Examples) -->
-        <dependency>
-            <groupId>com.stripe</groupId>
-            <artifactId>stripe-java</artifactId>
-            <version>24.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.paypal.sdk</groupId>
-            <artifactId>rest-api-sdk</artifactId>
-            <version>1.14.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.paystack</groupId>
-            <artifactId>paystack-java</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -215,24 +167,6 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers</artifactId>
-            <version>${testcontainers.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${testcontainers.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>kafka</artifactId>
-            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -248,6 +182,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
@@ -277,11 +218,6 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>0.2.0</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

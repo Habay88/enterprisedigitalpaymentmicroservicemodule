@@ -1,0 +1,120 @@
+spring:
+  application:
+    name: transaction-service
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/transaction_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: transaction:com.paymentplatform.transaction.entity.Transaction
+    consumer:
+      group-id: transaction-service
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    timeout: 2000ms
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 5
+        min-idle: 1
+
+server:
+  port: ${PORT:8082}
+  tomcat:
+    max-threads: 200
+    max-connections: 10000
+    accept-count: 100
+    connection-timeout: 20000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      paymentProcessor:
+        register-health-indicator: true
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10000
+        permitted-number-of-calls-in-half-open-state: 3
+  retry:
+    instances:
+      paymentProcessor:
+        max-attempts: 3
+        wait-duration: 1000
+        retry-exceptions:
+          - java.io.IOException
+          - com.paymentplatform.transaction.exception.ProcessorException
+
+logging:
+  level:
+    com.paymentplatform.transaction: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/transaction-service.log
+
+# Payment Processors
+# application.yml
+stripe:
+  api-key: ${STRIPE_API_KEY:}  # Leave empty for simulation mode
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+
+paystack:
+  secret-key: ${PAYSTACK_SECRET_KEY:}  # Leave empty for simulation mode
+
+paypal:
+  client-id: ${PAYPAL_CLIENT_ID:}
+  client-secret: ${PAYPAL_CLIENT_SECRET:}
+  mode: ${PAYPAL_MODE:sandbox}
