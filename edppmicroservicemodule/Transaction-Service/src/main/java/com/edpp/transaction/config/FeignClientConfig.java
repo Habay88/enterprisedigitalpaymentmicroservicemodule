@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.edpp.transaction.exception.ProcessorException;
+import com.edpp.transaction.exception.TransactionException;
+import com.edpp.transaction.util.RequestContext;
+import com.edpp.transaction.util.TenantContext;
+
 @Configuration
 public class FeignClientConfig {
 

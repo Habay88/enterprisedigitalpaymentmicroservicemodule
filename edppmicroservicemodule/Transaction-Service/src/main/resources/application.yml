@@ -32,7 +32,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: transaction:com.paymentplatform.transaction.entity.Transaction
+        spring.json.type.mapping: transaction:com.edpp.transaction.entity.Transaction
     consumer:
       group-id: transaction-service
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -94,17 +94,69 @@ resilience4j:
         wait-duration: 1000
         retry-exceptions:
           - java.io.IOException
-          - com.paymentplatform.transaction.exception.ProcessorException
+          - com.transaction.exception.ProcessorException
 
 logging:
   level:
-    com.paymentplatform.transaction: DEBUG
+    com.edpp.transaction: DEBUG
     org.springframework.web: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file:
     name: logs/transaction-service.log
-
+# Add to application.yml
+fraud:
+  max-amount-per-transaction: 5000000
+  suspicious-amount-threshold: 1000000
+  max-transactions-per-hour: 10
+  max-failed-attempts: 3
+  lockout-minutes: 30
+  enable-velocity-check: true
+  enable-ip-blacklist: true
+  enable-card-velocity: true
+  enable-device-fingerprinting: false
+  risk-scoring:
+    low-threshold: 30
+    medium-threshold: 50
+    high-threshold: 70
+  blacklist:
+    ips:
+      - 185.130.5.253
+      - 45.33.32.156
+    email-domains:
+      - mail.ru
+      - yandex.ru
+      - protonmail.com
+    countries:
+      - RU
+      - NG
+      - UA
+      - PK
+      spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: 
+          transaction:com.edpp.transaction.entity.Transaction
+          event:java.util.Map
+      retries: 3
+      acks: all
+      enable-idempotence: true
+      max-in-flight-requests-per-connection: 5
+      batch-size: 16384
+      linger-ms: 5
+      buffer-memory: 33554432
+      compression-type: snappy
+    producer:
+      topic:
+        transaction-events: transaction-events
+        payment-events: payment-events
+        audit-events: audit-events
+        notification-events: notification-events
+        fraud-events: fraud-events
 # Payment Processors
 # application.yml
 stripe:
