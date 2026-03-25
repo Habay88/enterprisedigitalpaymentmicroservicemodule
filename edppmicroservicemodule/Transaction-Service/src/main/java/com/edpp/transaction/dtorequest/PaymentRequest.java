@@ -1,5 +1,4 @@
-package com.edpp.transaction.dtorequest;
-
+package com.edpp.transaction.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 import com.edpp.transaction.entity.BankDetails;
-import com.edpp.transaction.entity.CardDetails;
+import com.edpp.transaction.entity.CardDetails; 
 
 @Data
 @Builder
@@ -49,7 +48,7 @@ public class PaymentRequest {
 
     private String customerPhone;
 
-    private CardDetails cardDetails;
+    private CardDetails cardDetails;    // Now this will resolve
 
     private BankDetails bankDetails;
 
@@ -58,4 +57,36 @@ public class PaymentRequest {
     private String callbackUrl;
 
     private Map<String, String> metadata;
+    
+    // Helper methods
+    public boolean isCardPayment() {
+        return "CARD".equalsIgnoreCase(paymentMethod);
+    }
+    
+    public boolean isBankTransfer() {
+        return "BANK_TRANSFER".equalsIgnoreCase(paymentMethod);
+    }
+    
+    public boolean isWalletPayment() {
+        return "WALLET".equalsIgnoreCase(paymentMethod);
+    }
+    
+    public boolean hasValidCardDetails() {
+        if (!isCardPayment()) {
+            return true;
+        }
+        return cardDetails != null && 
+               cardDetails.getExpiryMonth() != null && 
+               cardDetails.getExpiryYear() != null &&
+               cardDetails.getCardholderName() != null;
+    }
+    
+    public boolean hasValidBankDetails() {
+        if (!isBankTransfer()) {
+            return true;
+        }
+        return bankDetails != null && 
+               bankDetails.getAccountNumber() != null && 
+               bankDetails.getBankName() != null;
+    }
 }

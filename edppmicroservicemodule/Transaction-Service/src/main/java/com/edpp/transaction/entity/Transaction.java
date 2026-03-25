@@ -120,27 +120,6 @@ public class Transaction {
         if (totalAmount == null && amount != null) {
             totalAmount = amount.add(fee != null ? fee : BigDecimal.ZERO);
         }
-    }
-}
-
-@Embeddable
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-class CardDetails {
-    private String maskedPan;
-    private String cardType;
-    private String expiryMonth;
-    private String expiryYear;
-    private String cardholderName;
-    private String issuerCountry;
-    private String authorizationCode;
-    private String cardBrand;
-}
-
-
-
-
+    }}
 
 

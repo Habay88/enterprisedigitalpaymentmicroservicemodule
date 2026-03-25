@@ -1,6 +1,5 @@
 package com.edpp.transaction.service;
 
-
 import com.edpp.transaction.entity.Transaction;
 import com.edpp.transaction.entity.TransactionLog;
 import com.edpp.transaction.enums.TransactionStatus;
@@ -9,7 +8,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,13 +27,20 @@ import java.util.Map;
 public class TransactionLogService {
 
     private final TransactionLogRepository transactionLogRepository;
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;  // This is final and will be injected
 
-    public TransactionLogService() {
+    // Remove the custom constructor - @RequiredArgsConstructor handles it
+    // If you need to configure ObjectMapper, use @PostConstruct
+
+    /**
+     * Post construct to configure ObjectMapper
+     */
+    @javax.annotation.PostConstruct
+    public void init() {
         // Configure ObjectMapper for better JSON serialization
-        this.objectMapper = new ObjectMapper();
         this.objectMapper.registerModule(new JavaTimeModule());
         this.objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        log.debug("TransactionLogService initialized with configured ObjectMapper");
     }
 
     /**

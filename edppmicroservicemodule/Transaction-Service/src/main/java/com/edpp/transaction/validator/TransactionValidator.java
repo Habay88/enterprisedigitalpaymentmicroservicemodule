@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.edpp.transaction.dtorequest.PaymentRequest;
+import com.edpp.transaction.exception.TransactionException;
 
 public class TransactionValidator {
 

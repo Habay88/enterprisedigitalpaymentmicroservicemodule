@@ -18,7 +18,7 @@ public class CardDetails implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private String maskedPan;          // Masked card number (e.g., **** **** **** 1234)
-    private String cardType;            // VISA, MASTERCARD, AMEX, etc.
+    private String cardType;            // VISA, MASTERCARD, AMEX, VERVE, etc.
     private String expiryMonth;         // MM
     private String expiryYear;          // YYYY
     private String cardholderName;      // Name on card
@@ -136,7 +136,7 @@ public class CardDetails implements Serializable {
             return "VISA";
         }
         // Mastercard
-        if (Integer.parseInt(firstTwoDigits) >= 51 && Integer.parseInt(firstTwoDigits) <= 55) {
+        if (firstTwoDigits.matches("5[1-5]")) {
             return "MASTERCARD";
         }
         // American Express
@@ -145,14 +145,12 @@ public class CardDetails implements Serializable {
         }
         // Discover
         if (firstFourDigits.equals("6011") || 
-            (Integer.parseInt(firstTwoDigits) >= 64 && Integer.parseInt(firstTwoDigits) <= 65) ||
+            (firstTwoDigits.matches("6[4-5]")) ||
             firstFourDigits.equals("6229")) {
             return "DISCOVER";
         }
         // Verve (Nigerian)
-        if (firstTwoDigits.equals("50") || firstTwoDigits.equals("51") || 
-            firstTwoDigits.equals("52") || firstTwoDigits.equals("53") ||
-            firstTwoDigits.equals("54") || firstTwoDigits.equals("55")) {
+        if (firstTwoDigits.matches("5[0-5]") && cardNumber.length() == 16) {
             return "VERVE";
         }
         

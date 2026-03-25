@@ -1,62 +1,67 @@
 package com.edpp.transaction.config;
 
-
+import com.edpp.transaction.util.RequestContext;
 import feign.RequestInterceptor;
 import feign.Retryer;
 import feign.codec.ErrorDecoder;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.edpp.transaction.exception.ProcessorException;
-import com.edpp.transaction.exception.TransactionException;
-import com.edpp.transaction.util.RequestContext;
-import com.edpp.transaction.util.TenantContext;
 
 @Configuration
+@RequiredArgsConstructor
+@Slf4j
 public class FeignClientConfig {
+
+    private final RequestContext requestContext;
 
     @Bean
     public RequestInterceptor requestInterceptor() {
         return requestTemplate -> {
-            // Propagate tenant ID
-            String tenantId = TenantContext.getTenantId();
-            if (tenantId != null) {
+            // Propagate tenant ID from RequestContext
+            String tenantId = requestContext.getTenantId();
+            if (tenantId != null && !tenantId.isEmpty()) {
                 requestTemplate.header("X-Tenant-ID", tenantId);
+                log.debug("Adding tenant header: {}", tenantId);
             }
-
-            // Propagate authorization header
-            String authorization = getAuthorizationHeader();
-            if (authorization != null) {
-                requestTemplate.header("Authorization", authorization);
+            
+            // Use static method as fallback
+            if (tenantId == null) {
+                String staticTenantId = RequestContext.getCurrentTenantId();
+                if (staticTenantId != null) {
+                    requestTemplate.header("X-Tenant-ID", staticTenantId);
+                }
             }
 
             // Propagate request ID for tracing
-            String requestId = RequestContext.getRequestId();
+            String requestId = requestContext.getRequestId();
             if (requestId != null) {
                 requestTemplate.header("X-Request-ID", requestId);
+            } else {
+                String staticRequestId = RequestContext.getCurrentRequestId();
+                if (staticRequestId != null) {
+                    requestTemplate.header("X-Request-ID", staticRequestId);
+                }
+            }
+
+            // Propagate correlation ID
+            String correlationId = requestContext.getCorrelationId();
+            if (correlationId != null) {
+                requestTemplate.header("X-Correlation-ID", correlationId);
             }
         };
     }
 
     @Bean
     public Retryer retryer() {
+        // Custom retryer with exponential backoff
         return new Retryer.Default(100, 1000, 3);
     }
 
     @Bean
     public ErrorDecoder errorDecoder() {
         return new FeignErrorDecoder();
-    }
-
-    private String getAuthorizationHeader() {
-        // Extract JWT token from security context
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getCredentials() instanceof String) {
-            return "Bearer " + authentication.getCredentials();
-        }
-        return null;
     }
 }
 
@@ -66,10 +71,10 @@ class FeignErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, feign.Response response) {
         if (response.status() >= 400 && response.status() <= 499) {
-            return new TransactionException("Client error: " + response.status());
+            return new RuntimeException("Client error: " + response.status());
         }
         if (response.status() >= 500) {
-            return new ProcessorException("Server error: " + response.status());
+            return new RuntimeException("Server error: " + response.status());
         }
         return defaultDecoder.decode(methodKey, response);
     }
