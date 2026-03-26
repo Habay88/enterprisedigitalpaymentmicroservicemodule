@@ -8,11 +8,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import jakarta.persistence.Embeddable;
+
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class FraudCheckResult {
     private boolean allowed;
     private int riskScore;

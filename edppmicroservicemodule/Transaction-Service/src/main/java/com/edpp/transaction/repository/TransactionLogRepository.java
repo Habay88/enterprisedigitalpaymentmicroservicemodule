@@ -25,4 +25,6 @@ public interface TransactionLogRepository extends JpaRepository<TransactionLog, 
     List<TransactionLog> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
     long deleteByCreatedAtBefore(LocalDateTime olderThan);
+
+    Page<TransactionLog> findByMessageContainingIgnoreCase(String keyword, Pageable pageable);
 }

@@ -97,4 +97,8 @@ public class TransactionIdGenerator {
     public String generateCallbackReference() {
         return "CALLBACK_" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
+
+    public String generateMerchantRefundId() {
+    return REFUND_PREFIX + String.format("%012d", random.nextLong() % 1_000_000_000_000L);
+}
 }

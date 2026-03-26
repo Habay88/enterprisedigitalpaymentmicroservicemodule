@@ -1,4 +1,4 @@
-package com.edpp.transaction.dto.request;
+package com.edpp.transaction.dtorequest;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -18,6 +18,7 @@ import com.edpp.transaction.entity.CardDetails;
 @AllArgsConstructor
 public class PaymentRequest {
 
+    private String ipAddress;
     @NotBlank(message = "Merchant transaction ID is required")
     private String merchantTransactionId;
 

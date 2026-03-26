@@ -35,7 +35,7 @@ public class TransactionLogService {
     /**
      * Post construct to configure ObjectMapper
      */
-    @javax.annotation.PostConstruct
+    @jakarta.annotation.PostConstruct
     public void init() {
         // Configure ObjectMapper for better JSON serialization
         this.objectMapper.registerModule(new JavaTimeModule());
@@ -258,7 +258,7 @@ public class TransactionLogService {
      * Get logs with specific message pattern
      */
     public List<TransactionLog> searchLogsByMessage(String keyword) {
-        return transactionLogRepository.findByMessageContainingIgnoreCase(keyword);
+        return transactionLogRepository.findByMessageContainingIgnoreCase(keyword, null);
     }
 
     /**

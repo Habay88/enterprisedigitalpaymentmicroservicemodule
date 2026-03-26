@@ -1,6 +1,7 @@
 package com.edpp.transaction.util;
 
-import com.edpp.transaction.tenant.TenantContext;
+//import com.edpp.transaction.tenant.TenantContext;
+import com.edpp.transaction.util.TenantContext;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

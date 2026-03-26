@@ -33,7 +33,8 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
+   @Column(columnDefinition = "TEXT")
+private String fraudCheckResult; // or store as JSON stri
     @Column(unique = true, nullable = false, length = 50)
     private String transactionReference;
 

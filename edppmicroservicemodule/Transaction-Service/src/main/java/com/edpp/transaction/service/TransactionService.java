@@ -164,10 +164,10 @@ public class TransactionService {
                 }
 
                 transaction.setStatus(TransactionStatus.FAILED);
-                transaction.setProcessorResponseMessage(processorResponse.getMessage());
+                transaction.setProcessorResponseMessage(processorResponse.getResponseMessage());
                 transaction.setFailedAt(LocalDateTime.now());
                 
-                transactionLogService.log(transaction, "Payment failed: " + processorResponse.getMessage());
+                transactionLogService.log(transaction, "Payment failed: " + processorResponse.getResponseMessage());
                 kafkaProducerService.publishTransactionFailed(transaction);
             }
 

@@ -1,9 +1,13 @@
 package com.edpp.transaction.config;
 
-import org.apache.kafka.common.security.oauthbearer.internals.secured.Retry;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
+import io.github.resilience4j.retry.RetryConfig;
+import io.github.resilience4j.timelimiter.TimeLimiterConfig;
+import io.github.resilience4j.timelimiter.TimeLimiterRegistry;
+import java.time.Duration;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.retry.RetryRegistry;
 import io.github.resilience4j.timelimiter.TimeLimiterRegistry;
@@ -21,7 +25,7 @@ public class Resilience4JConfig {
                 .waitDurationInOpenState(Duration.ofSeconds(30))
                 .permittedNumberOfCallsInHalfOpenState(3)
                 .automaticTransitionFromOpenToHalfOpenEnabled(true)
-                .recordExceptions(Exception)
+                .recordExceptions(Exception.class)
                 .build();
         return CircuitBreakerRegistry.of(config);
     }
