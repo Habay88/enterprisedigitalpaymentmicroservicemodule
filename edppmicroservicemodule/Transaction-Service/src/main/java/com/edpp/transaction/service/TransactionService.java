@@ -27,6 +27,8 @@ import com.edpp.transaction.repository.TransactionRepository;
 import com.edpp.transaction.util.RequestContext;
 import com.edpp.transaction.validator.TransactionIdGenerator;
 import com.edpp.transaction.validator.TransactionValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -74,7 +76,13 @@ public class TransactionService {
         // Create transaction
         Transaction transaction = buildTransaction(request);
         transaction.setStatus(TransactionStatus.PENDING);
-        transaction.setFraudCheckResult(fraudCheck);
+        ObjectMapper objectMapper = new ObjectMapper();
+try {
+    transaction.setFraudCheckResult(objectMapper.writeValueAsString(fraudCheck));
+} catch (JsonProcessingException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
 
         Transaction savedTransaction = transactionRepository.save(transaction);
 

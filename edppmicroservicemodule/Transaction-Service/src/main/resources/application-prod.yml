@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: false
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS}
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+
+server:
+  port: ${PORT:8082}
+
+logging:
+  level:
+    com.edpp.transaction: INFO
+    org.springframework.web: WARN
+  file:
+    name: /var/log/transaction-service/transaction-service.log
+    max-size: 100MB
+    max-history: 30
+
+app:
+  environment: production

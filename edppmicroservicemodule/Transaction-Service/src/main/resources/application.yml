@@ -32,23 +32,49 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: transaction:com.edpp.transaction.entity.Transaction
+        spring.json.type.mapping: "transaction:com.edpp.transaction.entity.Transaction,event:java.util.Map"
+      retries: 3
+      acks: all
+      enable-idempotence: true
+      max-in-flight-requests-per-connection: 5
+      batch-size: 16384
+      linger-ms: 5
+      buffer-memory: 33554432
+      compression-type: snappy
     consumer:
       group-id: transaction-service
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+    topic:
+      transaction-events: transaction-events
+      payment-events: payment-events
+      audit-events: audit-events
+      notification-events: notification-events
+      fraud-events: fraud-events
 
-  redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
-    timeout: 2000ms
-    lettuce:
-      pool:
-        max-active: 10
-        max-idle: 5
-        min-idle: 1
+  # Updated Redis configuration (Spring Boot 3.x)
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 5
+          min-idle: 1
+      client-type: lettuce
+      client-name: transaction-service
+      database: 0
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000
+      cache-null-values: false
+      key-prefix: "transaction-service:"
 
 server:
   port: ${PORT:8082}
@@ -94,17 +120,23 @@ resilience4j:
         wait-duration: 1000
         retry-exceptions:
           - java.io.IOException
-          - com.transaction.exception.ProcessorException
+          - com.edpp.transaction.exception.ProcessorException
 
 logging:
   level:
     com.edpp.transaction: DEBUG
     org.springframework.web: INFO
+    org.springframework.data.redis: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file:
     name: logs/transaction-service.log
-# Add to application.yml
+    max-size: 10MB
+    max-history: 7
+
+# Fraud Detection Configuration
 fraud:
   max-amount-per-transaction: 5000000
   suspicious-amount-threshold: 1000000
@@ -132,41 +164,67 @@ fraud:
       - NG
       - UA
       - PK
-      spring:
-  kafka:
-    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring.json.type.mapping: 
-          transaction:com.edpp.transaction.entity.Transaction
-          event:java.util.Map
-      retries: 3
-      acks: all
-      enable-idempotence: true
-      max-in-flight-requests-per-connection: 5
-      batch-size: 16384
-      linger-ms: 5
-      buffer-memory: 33554432
-      compression-type: snappy
-    producer:
-      topic:
-        transaction-events: transaction-events
-        payment-events: payment-events
-        audit-events: audit-events
-        notification-events: notification-events
-        fraud-events: fraud-events
-# Payment Processors
-# application.yml
+
+# Payment Processors Configuration
 stripe:
-  api-key: ${STRIPE_API_KEY:}  # Leave empty for simulation mode
+  api-key: ${STRIPE_API_KEY:}
   webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
 
 paystack:
-  secret-key: ${PAYSTACK_SECRET_KEY:}  # Leave empty for simulation mode
+  secret-key: ${PAYSTACK_SECRET_KEY:}
 
 paypal:
   client-id: ${PAYPAL_CLIENT_ID:}
   client-secret: ${PAYPAL_CLIENT_SECRET:}
   mode: ${PAYPAL_MODE:sandbox}
+
+# Application Specific Configuration
+app:
+  name: transaction-service
+  version: 1.0.0
+  environment: ${ENVIRONMENT:development}
+  
+  security:
+    jwt:
+      secret: ${JWT_SECRET:your-secret-key}
+      expiration: 3600000
+      
+  monitoring:
+    enabled: true
+    metrics:
+      export:
+        interval: 30000
+
+# Redis Connection Pool Configuration (if using Lettuce)
+spring:
+  data:
+    redis:
+      connect-timeout: 5000
+      read-timeout: 5000
+      lettuce:
+        shutdown-timeout: 200ms
+        pool:
+          max-wait: -1ms
+
+# Redis Sentinel Configuration (if using Redis Sentinel)
+# spring:
+#   data:
+#     redis:
+#       sentinel:
+#         master: mymaster
+#         nodes: localhost:26379,localhost:26380
+
+# Redis Cluster Configuration (if using Redis Cluster)
+# spring:
+#   data:
+#     redis:
+#       cluster:
+#         nodes: localhost:6379,localhost:6380,localhost:6381
+#         max-redirects: 3
+
+# Spring Session Configuration (if using Redis for session storage)
+# spring:
+#   session:
+#     store-type: redis
+#     redis:
+#       namespace: transaction-service:sessions

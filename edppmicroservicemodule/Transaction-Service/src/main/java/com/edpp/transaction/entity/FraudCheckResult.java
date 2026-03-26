@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
 
 
@@ -19,6 +20,8 @@ import jakarta.persistence.Embeddable;
 public class FraudCheckResult {
     private boolean allowed;
     private int riskScore;
+    
+    @ElementCollection
     private List<String> flags;
     private String reason;
     private boolean requiresAdditionalAuth;

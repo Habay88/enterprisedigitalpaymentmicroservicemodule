@@ -27,10 +27,7 @@ import java.util.Map;
 public class TransactionLogService {
 
     private final TransactionLogRepository transactionLogRepository;
-    private final ObjectMapper objectMapper;  // This is final and will be injected
-
-    // Remove the custom constructor - @RequiredArgsConstructor handles it
-    // If you need to configure ObjectMapper, use @PostConstruct
+    private final ObjectMapper objectMapper;
 
     /**
      * Post construct to configure ObjectMapper
@@ -220,45 +217,52 @@ public class TransactionLogService {
     }
 
     /**
-     * Get all logs for a transaction
+     * Get all logs for a transaction (returns List)
      */
     public List<TransactionLog> getTransactionLogs(String transactionId) {
         return transactionLogRepository.findByTransactionIdOrderByCreatedAtDesc(transactionId);
     }
 
     /**
-     * Get logs for a transaction by reference
+     * Get logs for a transaction by reference (returns List)
      */
     public List<TransactionLog> getTransactionLogsByReference(String transactionReference) {
         return transactionLogRepository.findByTransactionReferenceOrderByCreatedAtDesc(transactionReference);
     }
 
     /**
-     * Get paginated logs for a transaction
+     * Get paginated logs for a transaction (returns Page)
      */
     public Page<TransactionLog> getTransactionLogsPaginated(String transactionId, Pageable pageable) {
         return transactionLogRepository.findByTransactionId(transactionId, pageable);
     }
 
     /**
-     * Get logs by status
+     * Get logs by status (returns List)
      */
     public List<TransactionLog> getLogsByStatus(TransactionStatus status) {
         return transactionLogRepository.findByNewStatus(status);
     }
 
     /**
-     * Get logs within date range
+     * Get logs within date range (returns List)
      */
     public List<TransactionLog> getLogsByDateRange(LocalDateTime start, LocalDateTime end) {
         return transactionLogRepository.findByCreatedAtBetween(start, end);
     }
 
     /**
-     * Get logs with specific message pattern
+     * Get logs with specific message pattern - Returns List
      */
     public List<TransactionLog> searchLogsByMessage(String keyword) {
-        return transactionLogRepository.findByMessageContainingIgnoreCase(keyword, null);
+        return transactionLogRepository.findByMessageContainingIgnoreCase(keyword);
+    }
+
+    /**
+     * Get logs with specific message pattern with pagination - Returns Page
+     */
+    public Page<TransactionLog> searchLogsByMessagePaginated(String keyword, Pageable pageable) {
+        return transactionLogRepository.findByMessageContainingIgnoreCase(keyword, pageable);
     }
 
     /**
