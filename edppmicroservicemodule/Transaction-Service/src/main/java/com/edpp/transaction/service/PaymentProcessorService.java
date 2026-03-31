@@ -1,13 +1,10 @@
 package com.edpp.transaction.service;
 
-
-
+import com.edpp.transaction.entity.Transaction;
+import com.edpp.transaction.processor.PaymentProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import com.edpp.transaction.entity.Transaction;
-import com.edpp.transaction.processor.PaymentProcessor;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,7 +31,6 @@ public class PaymentProcessorService {
         // Rule-based processor selection
         String currency = transaction.getCurrency();
         BigDecimal amount = transaction.getAmount();
-        String paymentMethod = transaction.getPaymentMethod();
 
         // Routing rules
         if ("USD".equals(currency) && amount.compareTo(new BigDecimal("10000")) < 0) {
@@ -51,7 +47,7 @@ public class PaymentProcessorService {
     /**
      * Get processor by name with fallback
      */
-    private PaymentProcessor getProcessor(String name) {
+    public PaymentProcessor getProcessor(String name) {
         PaymentProcessor processor = processorMap.get(name);
         if (processor == null) {
             log.warn("Processor {} not found, using default", name);

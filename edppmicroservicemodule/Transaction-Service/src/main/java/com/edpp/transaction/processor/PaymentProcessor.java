@@ -1,10 +1,9 @@
 package com.edpp.transaction.processor;
 
-import com.edpp.transaction.dtoresponse.ProcessorResponse;
+import com.edpp.transaction.dto.response.ProcessorResponse;
 import com.edpp.transaction.entity.Transaction;
+
 import java.math.BigDecimal;
-
-
 
 public interface PaymentProcessor {
     
@@ -12,6 +11,14 @@ public interface PaymentProcessor {
     
     default ProcessorResponse processRefund(String transactionId, BigDecimal amount) {
         return ProcessorResponse.failure("Refund not supported by this processor");
+    }
+    
+    default ProcessorResponse capturePayment(String transactionId, BigDecimal amount) {
+        return ProcessorResponse.failure("Capture not supported by this processor");
+    }
+    
+    default ProcessorResponse voidPayment(String transactionId) {
+        return ProcessorResponse.failure("Void not supported by this processor");
     }
     
     default ProcessorResponse getTransactionStatus(String processorTransactionId) {
@@ -24,10 +31,3 @@ public interface PaymentProcessor {
     
     String getProcessorName();
 }
-
-   /*  ProcessorResponse processPayment(Transaction transaction);
-    ProcessorResponse processRefund(String transactionId, BigDecimal amount);
-   P rocessorResponse getTransactionStatus(String processorTransactionId);
-    ProcessorResponse verifyWebhookSignature(String payload, String signature);
-    String getProcessorName(); */
-

@@ -1,4 +1,5 @@
-package com.edpp.transaction.dtoresponse;
+package com.edpp.transaction.dto.response;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +21,14 @@ public class ProcessorResponse {
     private LocalDateTime processedAt;
     private String authorizationUrl;
     
-    // Helper methods
+    public String getMessage() {
+        return responseMessage;
+    }
+    
+    public boolean isSuccessful() {
+        return successful;
+    }
+    
     public static ProcessorResponse success(String transactionId) {
         return ProcessorResponse.builder()
                 .successful(true)

@@ -49,7 +49,7 @@ public class PaymentRequest {
 
     private String customerPhone;
 
-    private CardDetails cardDetails;    // Now this will resolve
+    private CardDetails cardDetails;   
 
     private BankDetails bankDetails;
 
