@@ -2,6 +2,7 @@ package com.edpp.wallet.service;
 
 
 
+import com.edpp.wallet.client.IdentityServiceClient;
 import com.edpp.wallet.dtorequest.CreditRequest;
 import com.edpp.wallet.dtorequest.DebitRequest;
 import com.edpp.wallet.dtoresponse.BalanceResponse;
@@ -12,6 +13,14 @@ import com.edpp.wallet.enums.TransactionStatus;
 import com.edpp.wallet.enums.TransactionType;
 import com.edpp.wallet.enums.WalletStatus;
 import com.edpp.wallet.enums.WalletType;
+import com.edpp.wallet.exception.InsufficientBalanceException;
+import com.edpp.wallet.exception.WalletException;
+import com.edpp.wallet.exception.WalletNotFoundException;
+import com.edpp.wallet.mapper.WalletMapper;
+import com.edpp.wallet.repository.WalletRepository;
+import com.edpp.wallet.repository.WalletTransactionRepository;
+import com.edpp.wallet.util.RequestContext;
+import com.edpp.wallet.util.WalletNumberGenerator;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

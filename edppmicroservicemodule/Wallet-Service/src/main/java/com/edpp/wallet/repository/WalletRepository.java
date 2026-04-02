@@ -43,4 +43,6 @@ Optional<Wallet> findByWalletNumberAndTenantId(String walletNumber, String tenan
     @Query("SELECT SUM(w.balance) FROM Wallet w WHERE w.customerId = :customerId AND w.tenantId = :tenantId")
     BigDecimal getTotalBalanceForCustomer(@Param("customerId") String customerId,
                                           @Param("tenantId") String tenantId);
+
+    List<Wallet> findByWalletType(WalletType savings);
 }

@@ -1,6 +1,7 @@
 package com.edpp.wallet.service;
 
 import com.edpp.wallet.entity.Wallet;
+import com.edpp.wallet.exception.LimitExceededException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

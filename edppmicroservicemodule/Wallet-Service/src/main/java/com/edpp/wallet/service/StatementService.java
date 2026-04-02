@@ -1,7 +1,7 @@
 package com.edpp.wallet.service;
 
-import com.edpp.wallet.dto.response.StatementEntry;
-import com.edpp.wallet.dto.response.StatementResponse;
+import com.edpp.wallet.dtoresponse.StatementEntry;
+import com.edpp.wallet.dtoresponse.StatementResponse;
 import com.edpp.wallet.entity.Wallet;
 import com.edpp.wallet.entity.WalletTransaction;
 import com.edpp.wallet.repository.WalletTransactionRepository;

@@ -61,7 +61,7 @@ public class InterestService {
             BigDecimal interest = calculateInterest(wallet);
             if (interest.compareTo(BigDecimal.ZERO) > 0) {
                 // Credit interest to wallet
-                var request = new com.edpp.wallet.dto.request.CreditRequest(
+                var request = new com.edpp.wallet.dtorequest.CreditRequest(
                         wallet.getWalletNumber(),
                         interest,
                         generateInterestReference(wallet),

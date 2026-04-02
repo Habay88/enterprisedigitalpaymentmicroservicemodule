@@ -1,11 +1,12 @@
 package com.edpp.wallet.controller;
 
-import com.edpp.wallet.dto.request.CreateWalletRequest;
-import com.edpp.wallet.dto.request.CreditRequest;
-import com.edpp.wallet.dto.request.DebitRequest;
-import com.edpp.wallet.dto.response.BalanceResponse;
-import com.edpp.wallet.dto.response.WalletResponse;
+import com.edpp.wallet.dtorequest.CreateWalletRequest;
+import com.edpp.wallet.dtorequest.CreditRequest;
+import com.edpp.wallet.dtorequest.DebitRequest;
+import com.edpp.wallet.dtoresponse.BalanceResponse;
+import com.edpp.wallet.dtoresponse.WalletResponse;
 import com.edpp.wallet.service.WalletService;
+import com.edpp.wallet.util.RequestContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -29,10 +30,12 @@ public class WalletController {
     @PostMapping
     @Operation(summary = "Create a new wallet")
     public ResponseEntity<WalletResponse> createWallet(@Valid @RequestBody CreateWalletRequest request) {
+        String tenantId = RequestContext.getCurrentTenantId();
         WalletResponse response = walletService.createWallet(
                 request.customerId(),
                 request.walletType(),
-                request.currency()
+                request.currency(),
+                tenantId
         );
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -40,28 +43,32 @@ public class WalletController {
     @GetMapping("/{walletNumber}")
     @Operation(summary = "Get wallet by number")
     public ResponseEntity<WalletResponse> getWallet(@PathVariable String walletNumber) {
-        WalletResponse response = walletService.getWalletResponse(walletNumber);
+        String tenantId = RequestContext.getCurrentTenantId();
+        WalletResponse response = walletService.getWalletResponse(walletNumber, tenantId);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{walletNumber}/balance")
     @Operation(summary = "Get wallet balance")
     public ResponseEntity<BalanceResponse> getBalance(@PathVariable String walletNumber) {
-        BalanceResponse response = walletService.getBalance(walletNumber);
+        String tenantId = RequestContext.getCurrentTenantId();
+        BalanceResponse response = walletService.getBalance(walletNumber, tenantId);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/credit")
     @Operation(summary = "Credit wallet")
     public ResponseEntity<Void> creditWallet(@Valid @RequestBody CreditRequest request) {
-        walletService.creditWallet(request, getTenantId());
+        String tenantId = RequestContext.getCurrentTenantId();
+        walletService.creditWallet(request, tenantId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/debit")
     @Operation(summary = "Debit wallet")
     public ResponseEntity<Void> debitWallet(@Valid @RequestBody DebitRequest request) {
-        walletService.debitWallet(request, getTenantId());
+        String tenantId = RequestContext.getCurrentTenantId();
+        walletService.debitWallet(request, tenantId);
         return ResponseEntity.ok().build();
     }
 
@@ -70,7 +77,8 @@ public class WalletController {
     public ResponseEntity<WalletResponse> freezeWallet(
             @PathVariable String walletNumber,
             @RequestParam String reason) {
-        WalletResponse response = walletService.freezeWallet(walletNumber, reason, getTenantId());
+        String tenantId = RequestContext.getCurrentTenantId();
+        WalletResponse response = walletService.freezeWallet(walletNumber, reason, tenantId);
         return ResponseEntity.ok(response);
     }
 
@@ -79,19 +87,16 @@ public class WalletController {
     public ResponseEntity<WalletResponse> unfreezeWallet(
             @PathVariable String walletNumber,
             @RequestParam String reason) {
-        WalletResponse response = walletService.unfreezeWallet(walletNumber, reason, getTenantId());
+        String tenantId = RequestContext.getCurrentTenantId();
+        WalletResponse response = walletService.unfreezeWallet(walletNumber, reason, tenantId);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/customer/{customerId}")
     @Operation(summary = "Get all wallets for a customer")
     public ResponseEntity<List<WalletResponse>> getCustomerWallets(@PathVariable String customerId) {
-        List<WalletResponse> wallets = walletService.getCustomerWallets(customerId);
+        String tenantId = RequestContext.getCurrentTenantId();
+        List<WalletResponse> wallets = walletService.getCustomerWallets(customerId, tenantId);
         return ResponseEntity.ok(wallets);
-    }
-
-    private String getTenantId() {
-        // In production,  we will get from the RequestContext
-        return "DEFAULT_TENANT";
     }
 }
