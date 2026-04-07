@@ -1,11 +1,10 @@
 package com.edpp.wallet.service;
 
-
-
 import com.edpp.wallet.client.IdentityServiceClient;
 import com.edpp.wallet.dtorequest.CreditRequest;
 import com.edpp.wallet.dtorequest.DebitRequest;
 import com.edpp.wallet.dtoresponse.BalanceResponse;
+import com.edpp.wallet.dtoresponse.CustomerResponse;
 import com.edpp.wallet.dtoresponse.WalletResponse;
 import com.edpp.wallet.entity.Wallet;
 import com.edpp.wallet.entity.WalletTransaction;
@@ -21,7 +20,6 @@ import com.edpp.wallet.repository.WalletRepository;
 import com.edpp.wallet.repository.WalletTransactionRepository;
 import com.edpp.wallet.util.RequestContext;
 import com.edpp.wallet.util.WalletNumberGenerator;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -45,19 +43,17 @@ public class WalletService {
     private final KafkaProducerService kafkaProducerService;
     private final IdentityServiceClient identityServiceClient;
     private final WalletNumberGenerator walletNumberGenerator;
-    private final RequestContext requestContext;
 
     /**
      * Create a new wallet
      */
     @Transactional
-    public WalletResponse createWallet(String customerId, WalletType walletType, String currency) {
-        String tenantId = requestContext.getTenantId();
+    public WalletResponse createWallet(String customerId, WalletType walletType, String currency, String tenantId) {
         log.info("Creating wallet for customer: {} in tenant: {}", customerId, tenantId);
 
         // Validate customer exists with Identity Service
-        var customer = identityServiceClient.getCustomer(customerId, tenantId);
-        if (customer == null || !customer.active()) {
+        CustomerResponse customer = identityServiceClient.getCustomer(customerId, tenantId);
+        if (customer == null || !customer.isActive()) {
             throw new WalletException("Customer not found or inactive");
         }
 
@@ -79,7 +75,7 @@ public class WalletService {
                 .availableBalance(BigDecimal.ZERO)
                 .ledgerBalance(BigDecimal.ZERO)
                 .currency(currency)
-                .createdBy(requestContext.getUserId())
+                .createdBy(RequestContext.getCurrentUserId())
                 .build();
 
         Wallet savedWallet = walletRepository.save(wallet);
@@ -103,8 +99,7 @@ public class WalletService {
     /**
      * Get wallet response by number
      */
-    public WalletResponse getWalletResponse(String walletNumber) {
-        String tenantId = requestContext.getTenantId();
+    public WalletResponse getWalletResponse(String walletNumber, String tenantId) {
         Wallet wallet = getWallet(walletNumber, tenantId);
         return walletMapper.toResponse(wallet);
     }
@@ -112,8 +107,7 @@ public class WalletService {
     /**
      * Get balance
      */
-    public BalanceResponse getBalance(String walletNumber) {
-        String tenantId = requestContext.getTenantId();
+    public BalanceResponse getBalance(String walletNumber, String tenantId) {
         Wallet wallet = getWallet(walletNumber, tenantId);
         return new BalanceResponse(
                 wallet.getWalletNumber(),
@@ -256,7 +250,7 @@ public class WalletService {
         }
 
         wallet.setStatus(WalletStatus.FROZEN);
-        wallet.setUpdatedBy(requestContext.getUserId());
+        wallet.setUpdatedBy(RequestContext.getCurrentUserId());
         wallet = walletRepository.save(wallet);
 
         kafkaProducerService.publishWalletFrozen(wallet, reason);
@@ -279,7 +273,7 @@ public class WalletService {
         }
 
         wallet.setStatus(WalletStatus.ACTIVE);
-        wallet.setUpdatedBy(requestContext.getUserId());
+        wallet.setUpdatedBy(RequestContext.getCurrentUserId());
         wallet = walletRepository.save(wallet);
 
         kafkaProducerService.publishWalletUnfrozen(wallet, reason);
@@ -290,8 +284,7 @@ public class WalletService {
     /**
      * Get all wallets for a customer
      */
-    public List<WalletResponse> getCustomerWallets(String customerId) {
-        String tenantId = requestContext.getTenantId();
+    public List<WalletResponse> getCustomerWallets(String customerId, String tenantId) {
         return walletRepository.findByCustomerIdAndTenantId(customerId, tenantId)
                 .stream()
                 .map(walletMapper::toResponse)

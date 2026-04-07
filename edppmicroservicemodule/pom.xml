@@ -35,8 +35,8 @@
     <modules>
         <module>identity-service</module>
         <module>wallet-service</module>
-        <module>transaction-service</module>
-        <module>ledger-service</module>
+        <module>Transaction-service</module>
+        <module>Ledger-service</module>
         <module>settlement-service</module>
         <module>merchant-service</module>
         <module>api-gateway</module>
@@ -211,10 +211,7 @@
         </dependency>
 
         <!-- Utilities -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
+     
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

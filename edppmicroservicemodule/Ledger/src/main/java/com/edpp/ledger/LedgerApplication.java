@@ -1,13 +1,13 @@
-package com.edpp.identity.ledger;
+package com.edpp.ledger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LedgerServiceApplication {
+public class LedgerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LedgerServiceApplication.class, args);
+		SpringApplication.run(LedgerApplication.class, args);
 	}
 
 }

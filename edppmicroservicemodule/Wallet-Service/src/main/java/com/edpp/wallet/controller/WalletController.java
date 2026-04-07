@@ -1,11 +1,11 @@
 package com.edpp.wallet.controller;
-
+import com.edpp.wallet.service.WalletService;
 import com.edpp.wallet.dtorequest.CreateWalletRequest;
 import com.edpp.wallet.dtorequest.CreditRequest;
 import com.edpp.wallet.dtorequest.DebitRequest;
 import com.edpp.wallet.dtoresponse.BalanceResponse;
 import com.edpp.wallet.dtoresponse.WalletResponse;
-import com.edpp.wallet.service.WalletService;
+
 import com.edpp.wallet.util.RequestContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

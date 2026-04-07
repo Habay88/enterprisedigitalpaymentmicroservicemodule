@@ -1,10 +1,10 @@
-package com.edpp.identity.ledger;
+package com.edpp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LedgerServiceApplicationTests {
+class LedgerApplicationTests {
 
 	@Test
 	void contextLoads() {
