@@ -1,1 +1,119 @@
-spring.application.name=api-gateway
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      # Enable service discovery for dynamic routing
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      
+      # HTTP client configuration
+      httpclient:
+        connect-timeout: 5000      # 5 seconds connection timeout
+        response-timeout: 30s      # 30 seconds response timeout
+        pool:
+          max-connections: 500      # Maximum connections
+          acquire-timeout: 45s     # Time to wait for connection
+      
+      # Default filters applied to all routes
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            statuses: SERVICE_UNAVAILABLE, GATEWAY_TIMEOUT
+            methods: GET, POST
+        - name: RequestRateLimiter
+          args:
+            key-resolver: "#{@tenantKeyResolver}"
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+
+  # Redis configuration for rate limiting
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 5
+          min-idle: 1
+
+  # Security configuration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081
+
+server:
+  port: ${PORT:8080}
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+# Eureka service discovery
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    metadata-map:
+      instanceId: ${spring.application.name}:${random.value}
+
+# Actuator endpoints for monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoint:
+    health:
+      show-details: always
+
+# Logging configuration
+logging:
+  level:
+    com.edpp.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
+    reactor.netty: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/api-gateway.log
+    max-size: 10MB
+    max-history: 7
+
+# JWT configuration
+jwt:
+  secret: ${JWT_SECRET:your-256-bit-secret-key-for-jwt-signing-please-change-in-production}
+  expiration: 86400000  # 24 hours in milliseconds
+
+# Rate limiting tiers
+rate-limiting:
+  enabled: true
+  tiers:
+    free:
+      limit: 100
+      window: 60
+    pro:
+      limit: 1000
+      window: 60
+    enterprise:
+      limit: 10000
+      window: 60
