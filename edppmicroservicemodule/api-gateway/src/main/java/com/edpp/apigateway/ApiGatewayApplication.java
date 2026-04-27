@@ -7,7 +7,7 @@ import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.context.annotation.Bean;
 
 /**
- * API Gateway Application - The entry point for all client requests yes
+ * API Gateway Application - The entry point for all client requests
  * 
  * This service acts as the single entry point for all microservices.
  * It handles:
