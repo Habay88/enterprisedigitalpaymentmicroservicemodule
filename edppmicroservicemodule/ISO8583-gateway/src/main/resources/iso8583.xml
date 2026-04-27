@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE packager SYSTEM "genericpackager.dtd">
+
+<!--
+    ISO 8583 Field Definitions
+    This file defines the structure of ISO 8583 messages
+
+    Key Field Types:
+    - FIXED: Fixed length field
+    - LLVAR: 2-digit length + variable data
+    - LLLVAR: 3-digit length + variable data
+    - BINARY: Binary data
+    - AMOUNT: Special amount formatting
+-->
+
+<packager>
+    <!-- Message Type Indicator (MTI) - 4 digits -->
+    <isofield
+            id="0"
+            length="4"
+            name="MTI"
+            class="org.jpos.iso.IFA_NUMERIC"
+            pad="true"
+    />
+
+    <!-- Bitmap - 64 bits (8 bytes) or 128 bits (16 bytes) -->
+    <isofield
+            id="1"
+            length="16"
+            name="BITMAP"
+            class="org.jpos.iso.IFA_BITMAP"
+    />
+
+    <!-- DE 2: Primary Account Number (PAN) - LLVAR (max 19) -->
+    <isofield
+            id="2"
+            length="19"
+            name="PAN"
+            class="org.jpos.iso.IFA_LLNUM"
+    />
+
+    <!-- DE 3: Processing Code - 6 digits -->
+    <isofield
+            id="3"
+            length="6"
+            name="PROCESSING_CODE"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 4: Amount - 12 digits -->
+    <isofield
+            id="4"
+            length="12"
+            name="AMOUNT"
+            class="org.jpos.iso.IFA_AMOUNT"
+    />
+
+    <!-- DE 11: STAN (System Trace Audit Number) - 6 digits -->
+    <isofield
+            id="11"
+            length="6"
+            name="STAN"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 12: Local Transaction Time - 6 digits (HHMMSS) -->
+    <isofield
+            id="12"
+            length="6"
+            name="TIME_LOCAL_TRANSACTION"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 13: Local Transaction Date - 4 digits (MMDD) -->
+    <isofield
+            id="13"
+            length="4"
+            name="DATE_LOCAL_TRANSACTION"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 22: POS Entry Mode - 3 digits -->
+    <isofield
+            id="22"
+            length="3"
+            name="POS_ENTRY_MODE"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 23: Card Sequence Number - 3 digits -->
+    <isofield
+            id="23"
+            length="3"
+            name="CARD_SEQUENCE_NUMBER"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 25: POS Condition Code - 2 digits -->
+    <isofield
+            id="25"
+            length="2"
+            name="POS_CONDITION_CODE"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 32: Acquiring Institution ID - LLVAR -->
+    <isofield
+            id="32"
+            length="11"
+            name="ACQUIRING_INSTITUTION"
+            class="org.jpos.iso.IFA_LLNUM"
+    />
+
+    <!-- DE 33: Forwarding Institution ID - LLVAR -->
+    <isofield
+            id="33"
+            length="11"
+            name="FORWARDING_INSTITUTION"
+            class="org.jpos.iso.IFA_LLNUM"
+    />
+
+    <!-- DE 35: Track 2 Data - LLLVAR (max 37) -->
+    <isofield
+            id="35"
+            length="37"
+            name="TRACK2"
+            class="org.jpos.iso.IFA_LLLCHAR"
+    />
+
+    <!-- DE 38: Authorization ID Response - 6 digits -->
+    <isofield
+            id="38"
+            length="6"
+            name="AUTH_ID_RESPONSE"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 39: Response Code - 2 digits -->
+    <isofield
+            id="39"
+            length="2"
+            name="RESPONSE_CODE"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 41: Terminal ID - 8 chars -->
+    <isofield
+            id="41"
+            length="8"
+            name="TERMINAL_ID"
+            class="org.jpos.iso.IFA_LLCHAR"
+    />
+
+    <!-- DE 42: Merchant ID - 15 chars -->
+    <isofield
+            id="42"
+            length="15"
+            name="MERCHANT_ID"
+            class="org.jpos.iso.IFA_LLCHAR"
+    />
+
+    <!-- DE 43: Card Acceptor Name/Location - 40 chars -->
+    <isofield
+            id="43"
+            length="40"
+            name="CARD_ACCEPTOR_NAME"
+            class="org.jpos.iso.IFA_LLCHAR"
+    />
+
+    <!-- DE 48: Additional Data - LLLVAR (max 999) -->
+    <isofield
+            id="48"
+            length="999"
+            name="ADDITIONAL_DATA"
+            class="org.jpos.iso.IFA_LLLCHAR"
+    />
+
+    <!-- DE 49: Currency Code - 3 digits -->
+    <isofield
+            id="49"
+            length="3"
+            name="CURRENCY_CODE"
+            class="org.jpos.iso.IFA_NUMERIC"
+    />
+
+    <!-- DE 52: PIN Data - 8 bytes binary -->
+    <isofield
+            id="52"
+            length="8"
+            name="PIN_DATA"
+            class="org.jpos.iso.IFA_BINARY"
+    />
+
+    <!-- DE 53: Security Related Control Info - 16 bytes -->
+    <isofield
+            id="53"
+            length="16"
+            name="SECURITY_INFO"
+            class="org.jpos.iso.IFA_BINARY"
+    />
+
+    <!-- DE 55: EMV Data - LLLVAR (max 255) -->
+    <isofield
+            id="55"
+            length="255"
+            name="EMV_DATA"
+            class="org.jpos.iso.IFA_LLLCHAR"
+    />
+
+    <!-- DE 62: Invoice Number - LLLVAR -->
+    <isofield
+            id="62"
+            length="60"
+            name="INVOICE_NUMBER"
+            class="org.jpos.iso.IFA_LLLCHAR"
+    />
+
+    <!-- DE 63: Network Management Info - LLLVAR -->
+    <isofield
+            id="63"
+            length="199"
+            name="NETWORK_MANAGEMENT_INFO"
+            class="org.jpos.iso.IFA_LLLCHAR"
+    />
+
+    <!-- DE 64: Message Authentication Code - 8 bytes binary -->
+    <isofield
+            id="64"
+            length="8"
+            name="MAC"
+            class="org.jpos.iso.IFA_BINARY"
+    />
+</packager>

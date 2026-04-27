@@ -1,0 +1,15 @@
+FROM openjdk:21-jdk-slim AS build
+WORKDIR /app
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+RUN ./mvnw dependency:go-offline -B
+COPY src src
+RUN ./mvnw package -DskipTests
+
+FROM openjdk:21-jdk-slim
+WORKDIR /app
+RUN apt-get update && apt-get install -y netcat
+COPY --from=build /app/target/iso8583-gateway-*.jar app.jar
+EXPOSE 8583 8584 8585 8087
+ENTRYPOINT ["java", "-jar", "app.jar"]

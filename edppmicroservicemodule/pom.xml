@@ -41,6 +41,7 @@
         <module>merchant-service</module>
         <module>api-gateway</module>
         <module>discovery-service</module>
+        <module>ISO8583-gateway</module>
     </modules>
 
     <!-- Dependency Management - Centralized version control -->

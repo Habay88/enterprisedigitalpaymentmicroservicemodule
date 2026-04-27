@@ -4,7 +4,58 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="" />
+    <list default="true" id="03697e59-f732-4dbd-bc69-56a35a96ad48" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/src/main/java/com/edpp/identity/apigateway/ApiGatewayApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/bin/src/test/java/com/edpp/identity/apigateway/ApiGatewayApplicationTests.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/builder/Iso8583Builder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/client/TransactionServiceClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/config/PackagerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/dto/AuthorizationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/dto/AuthorizationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/entity/IsoMessageLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/entity/TerminalSession.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/enums/MtiType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/enums/ProcessingCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/enums/ResponseCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/enums/SessionStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/handler/MessageHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/parser/Iso8583Parser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/repository/IsoMessageLogRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/repository/TerminalSessionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/server/Iso8583Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/service/AuthorizationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/service/Iso8583MessageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/service/KeyManagementService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/service/NetworkManagementService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/service/ReversalService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/java/com/edpp/iso8583/util/MacCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/resources/dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/main/resources/iso8583.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/test/java/com/edpp/apigateway/ApiGatewayApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ISO8583-gateway/src/test/java/com/edpp/identity/apigateway/ApiGatewayApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/edpp/apigateway/ApiGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/edpp/apigateway/ApiGatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +64,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Record" />
         <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
@@ -24,6 +76,13 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -38,11 +97,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "last_directory_selection": "C:/Users/babio/OneDrive/Documents/GitHub/edppmicroservicemodule/edppmicroservicemodule/identity-service/src/main/java/com/edpp/identity",
-    "last_opened_file_path": "C:/Users/lbanjoko/OneDrive - SecureID Group/Documents/GitHub/enterprisedigitalpaymentmicroservicemodule",
+    "last_opened_file_path": "C:/PROJECT 26/myprojects/enterprisedigitalpaymentmicroservicemodule/edppmicroservicemodule",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
@@ -50,6 +113,9 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.edpp.identity.model" />
       <recent name="com.edpp.identity.repository" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\PROJECT 26\myprojects\enterprisedigitalpaymentmicroservicemodule\edppmicroservicemodule\" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\babio\OneDrive\Documents\GitHub\edppmicroservicemodule\edppmicroservicemodule\identity-service\src\main\java\com\edpp" />

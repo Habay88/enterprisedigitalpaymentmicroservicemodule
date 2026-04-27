@@ -1,4 +1,4 @@
-package com.edpp.gateway;
+package com.edpp.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.context.annotation.Bean;
 
 /**
- * API Gateway Application - The entry point for all client requests
+ * API Gateway Application - The entry point for all client requests yes
  * 
  * This service acts as the single entry point for all microservices.
  * It handles:
@@ -28,10 +28,10 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication
 @EnableDiscoveryClient  // Enables service discovery with Eureka
-public class GatewayApplication {
+public class ApiGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
+        SpringApplication.run(ApiGatewayApplication.class, args);
     }
 
     /**

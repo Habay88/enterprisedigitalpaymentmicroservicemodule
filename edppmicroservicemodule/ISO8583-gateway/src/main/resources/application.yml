@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: iso8583-gateway
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/iso8583_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+server:
+  port: ${PORT:8087}
+
+# ISO 8583 Server Configuration
+iso8583:
+  server:
+    port: 8583           # Main ISO 8583 port
+    nm-port: 8584        # Network management port
+    reversal-port: 8585  # Reversal port
+  nibss:
+    host: ${NIBSS_HOST:nibss-api.nibss.gov.ng}
+    port: ${NIBSS_PORT:8583}
+    institution-id: ${NIBSS_INSTITUTION_ID:999001}
+  interswitch:
+    host: ${INTERSWITCH_HOST:api.interswitch.com}
+    port: ${INTERSWITCH_PORT:8583}
+    merchant-code: ${INTERSWITCH_MERCHANT_CODE:test123}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+logging:
+  level:
+    com.edpp.iso8583: DEBUG
+    org.jpos: INFO
